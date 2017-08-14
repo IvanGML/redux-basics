@@ -1,50 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 
 import  List from '../components/List';
 import { deletTodo, toggleTodo, editTodo } from '../actions'
 
-class ListContainer extends React.Component {
-    constructor(props){
-        super(props);
+const mapStateToProps = state => ({todos: state})
 
-        this.store = this.props.store;
-
-        this.handleDelete = this.handleDelete.bind(this);
-        this.handleToggle = this.handleToggle.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
-    }
-
-    componentDidMount() {
-        this.unsubscribe = this.store.subscribe(()=> this.forceUpdate());
-    }
-
-    componentWillUnmount() {
-        this.unsubscribe();
-    }
-
-    handleDelete(id) {
-        this.store.dispatch(deletTodo(id))
-    }
-
-    handleToggle(id) {
-        this.store.dispatch(toggleTodo(id))
-    }
-
-    handleEdit(id, title) {        
-        this.store.dispatch(editTodo(id, title))
-    }
-
-    render() {
-        const todos = this.store.getState();
-        return(
-            <List
-                todos={todos}
-                onDelete={this.handleDelete}
-                onToggle={this.handleToggle}
-                onEdit={this.handleEdit}
-            />
-        );
+const mapDispatchToProps = dispatch => {
+    return {
+        onDelete: id => dispatch(deletTodo(id)),
+        onToggle: id => dispatch(toggleTodo(id)),
+        onEdit: (id, title) => dispatch(editTodo(id, title)),
     }
 }
+
+const ListContainer = connect(mapStateToProps, mapDispatchToProps)(List);
 
 export default ListContainer;

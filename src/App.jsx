@@ -4,11 +4,11 @@ import HeaderContainer from './containers/HeaderContainer';
 import ListContainer from './containers/ListContainer';
 import FormContainer from './containers/FormContainer';
 
-const App = ({store}) => 
+const App = () => 
             <main>
-                <HeaderContainer store={store}/>
-                <ListContainer store={store}/>
-                <FormContainer store={store}/>
+                <HeaderContainer />
+                <ListContainer />
+                <FormContainer />
             </main>
 
 export default App;
